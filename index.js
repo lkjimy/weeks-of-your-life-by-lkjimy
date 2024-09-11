@@ -19,7 +19,7 @@ const app = createApp({
       backgroundColor: 'white',
       borderColor: 'black',
       fillColor: 'black',
-      birthdayColor: 'green'
+      birthdayColor: 'forestgreen'
     })
 
     const urlParams = new URLSearchParams(window.location.search)
@@ -31,7 +31,7 @@ const app = createApp({
     configs.backgroundColor = urlParams.get('backgroundColor') || 'white'
     configs.borderColor = urlParams.get('borderColor') || 'black'
     configs.fillColor = urlParams.get('fillColor') || 'black'
-    configs.birthdayColor = urlParams.get('birthdayColor') || 'green'
+    configs.birthdayColor = urlParams.get('birthdayColor') || 'forestgreen'
 
     document.body.style.setProperty('--background-color',configs.backgroundColor)
     document.body.style.setProperty('--border-color', configs.borderColor)
