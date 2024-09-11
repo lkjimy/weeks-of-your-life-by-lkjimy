@@ -1,0 +1,22 @@
+body {
+  background-color: var(--background-color, white);
+}
+
+#app {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+#app .week[data-active=true]:nth-child(52n) {
+  background-color: var(--birthday-color, forestgreen);
+}
+#app .week {
+  height: 16px;
+  width: 16px;
+  border: 1px solid var(--border-color, black);
+  border-radius: 4px;
+}
+#app .week[data-active=true] {
+  background-color: var(--fill-color, black);
+}

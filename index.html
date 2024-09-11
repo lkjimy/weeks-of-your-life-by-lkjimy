@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Weeks of Your Life, by @lkjimy</title>
+
+    <link
+      rel="stylesheet"
+      href="styles.css"
+    />
+
+    <script
+      type="module"
+      src="index.js"
+      defer
+    ></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div
+        class="week"
+        v-for="week in WEEKS"
+        :key="week"
+        :data-active="week <= calculatedWeek"
+      ></div>
+    </div>
+  </body>
+</html>
