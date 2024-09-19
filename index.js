@@ -1,55 +1,31 @@
-import {
-  createApp,
-  ref,
-  reactive,
-  computed
-} from 'https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js'
+const WEEKS = 5218
 
-const app = createApp({
-  setup() {
-    const WEEKS = ref(5218)
+const urlParams = new URLSearchParams(window.location.search)
 
-    const birthDate = reactive({
-      d: 0,
-      m: 0,
-      y: 0
-    })
+const d = urlParams.get("d") || 0
+const m = urlParams.get("m") || 0
+const y = urlParams.get("y") || 0
 
-    const configs = reactive({
-      backgroundColor: 'white',
-      borderColor: 'black',
-      fillColor: 'black',
-      birthdayColor: 'forestgreen'
-    })
+const backgroundColor = urlParams.get("backgroundColor") || "white"
+const borderColor = urlParams.get("borderColor") || "black"
+const fillColor = urlParams.get("fillColor") || "black"
+const birthdayColor = urlParams.get("birthdayColor") || "forestgreen"
 
-    const urlParams = new URLSearchParams(window.location.search)
+document.body.style.setProperty("--background-color", backgroundColor)
+document.body.style.setProperty("--border-color", borderColor)
+document.body.style.setProperty("--fill-color", fillColor)
+document.body.style.setProperty("--birthday-color", birthdayColor)
 
-    birthDate.d = urlParams.get('d')
-    birthDate.m = urlParams.get('m')
-    birthDate.y = urlParams.get('y')
+const birth = new Date(y, m - 1, d)
+const now = new Date()
+const diff = now - birth
+const calculatedWeek = Math.floor(diff / (1000 * 60 * 60 * 24 * 7))
 
-    configs.backgroundColor = urlParams.get('backgroundColor') || 'white'
-    configs.borderColor = urlParams.get('borderColor') || 'black'
-    configs.fillColor = urlParams.get('fillColor') || 'black'
-    configs.birthdayColor = urlParams.get('birthdayColor') || 'forestgreen'
+const wrapper = document.querySelector("#app")
 
-    document.body.style.setProperty('--background-color',configs.backgroundColor)
-    document.body.style.setProperty('--border-color', configs.borderColor)
-    document.body.style.setProperty('--fill-color', configs.fillColor)
-    document.body.style.setProperty('--birthday-color', configs.birthdayColor)
-
-    const calculatedWeek = computed(() => {
-      const birth = new Date(birthDate.y, birthDate.m - 1, birthDate.d)
-      const now = new Date()
-      const diff = now - birth
-      return Math.floor(diff / (1000 * 60 * 60 * 24 * 7))
-    })
-
-    return {
-      WEEKS,
-      calculatedWeek
-    }
-  }
-})
-
-app.mount('#app')
+for (let i = 0; i < WEEKS; i++) {
+  const weekEl = document.createElement("div")
+  weekEl.classList.add("week")
+  weekEl.setAttribute("data-active", i <= calculatedWeek)
+  wrapper.appendChild(weekEl)
+}
